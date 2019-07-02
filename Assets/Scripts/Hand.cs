@@ -80,6 +80,22 @@ public class Hand : MonoBehaviour
         currentInteractable = null;
     }
 
+    public void Drop(FixedJoint targetJoint)
+    {
+        if (!currentInteractable)
+            return;
+
+        Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
+        targetBody.velocity = pose.GetVelocity();
+        targetBody.angularVelocity = pose.GetAngularVelocity();
+
+        fixedJoint.connectedBody = null;
+        currentInteractable.activeHand = null;
+        currentInteractable = null;
+
+        targetJoint.connectedBody = targetBody;
+    }
+
     Interactable GetNearestInteractable()
     {
         Interactable nearest = null;
