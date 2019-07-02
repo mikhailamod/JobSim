@@ -12,6 +12,24 @@ public class Interactable : MonoBehaviour
 
     public DeliveryZone deliveryZone;
 
+    private bool inZone = false;
+    public bool isSmall = false;
+    private bool isInSpawnArea = true;
+    public Vector3 originalPos;
+
+    private void Start()
+    {
+        originalPos = transform.position;
+    }
+
+    private void Update()
+    {
+        if (inZone && activeHand == null)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Cup collides with machine");
@@ -29,6 +47,22 @@ public class Interactable : MonoBehaviour
         {
             Debug.Log("Delivery Zone");
             deliveryZone.checkCup(ingredients);
+            inZone = true;
+        }
+
+        else if(other.gameObject.CompareTag("Spawn"))
+        {
+            isInSpawnArea = true;
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Spawn"))
+        {
+            isInSpawnArea = false;
+        }
+    }
+
+    public bool IsInSpawn() { return isInSpawnArea; }
 }

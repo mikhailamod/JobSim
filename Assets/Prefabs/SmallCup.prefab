@@ -123,3 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeHand: {fileID: 0}
   ingredients: []
+  deliveryZone: {fileID: 0}
+  isSmall: 1
+  origin: {fileID: 0}
