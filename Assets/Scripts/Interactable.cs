@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour
 
     public List<string> ingredients = new List<string>();
 
+    public DeliveryZone deliveryZone;
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Cup collides with machine");
@@ -26,7 +28,7 @@ public class Interactable : MonoBehaviour
         else if(other.gameObject.CompareTag("Delivery"))
         {
             Debug.Log("Delivery Zone");
-            other.gameObject.GetComponent<DeliveryZone>().checkCup(ingredients);
+            deliveryZone.checkCup(ingredients);
         }
     }
 }
