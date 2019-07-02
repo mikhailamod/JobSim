@@ -68,7 +68,10 @@ public class Hand : MonoBehaviour
 
         if(currentInteractable.IsInSpawn())
         {
-            cupGenerator.generateCup(currentInteractable.isSmall, currentInteractable.transform);
+            Vector3 temp = new Vector3(currentInteractable.transform.position.x,
+                                        currentInteractable.transform.position.y,
+                                        currentInteractable.transform.position.z);
+            cupGenerator.generateCup(currentInteractable.isSmall, currentInteractable.transform.position);
         }
     }
 

@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Interactable : MonoBehaviour
 {
     [HideInInspector]
     public Hand activeHand = null;
+    public bool isSmall = false;
 
     public List<string> ingredients = new List<string>();
 
     public DeliveryZone deliveryZone;
 
     private bool inZone = false;
-    public bool isSmall = false;
     private bool isInSpawnArea = true;
     public Vector3 originalPos;
+
+    //UI
+    //public TextMeshProUGUI orderDetails;
 
     private void Start()
     {
