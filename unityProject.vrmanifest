@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.jobsim.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Mikhail\\Documents\\JobSim\\JobSim\\actions.json",
+      "action_manifest_path": "D:\\DevProjects\\Unity2019 Projects\\JobSim\\actions.json",
       "strings": {
         "en_us": {
           "name": "JobSim [Testing]"
