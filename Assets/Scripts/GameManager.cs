@@ -28,12 +28,6 @@ public class GameManager : MonoBehaviour
         NextOrder();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void NextOrder()
     {
         currentOrder = orders.Peek();
@@ -57,20 +51,24 @@ public class GameManager : MonoBehaviour
     {
         string[] myKeys = new string[20];
         string[] myValues = new string[20];
+        int prevOrder = 0;
+        int randNum = prevOrder;
         //
         coffeeType.Keys.CopyTo(myKeys, 0);
         for (int i = 0; i < 20; ++i)
         {
-            int randNum = rand.Next(0, 3);
+            while (prevOrder == randNum)
+                randNum = rand.Next(0, 3);
             orders.Enqueue( myKeys[randNum] );
+            prevOrder = randNum;
         }
     }
 
      public bool CheckOrder(List<string> ingredients)
     {
-        Debug.Log("Cup has: " + ingredients);
+        //Debug.Log("Cup has: " + ingredients);
         string[] currentIngredients = coffeeType[currentOrder];
-        Debug.Log("Required: " + currentIngredients);
+        //Debug.Log("Required: " + currentIngredients);
         foreach (string val in currentIngredients)
         {
             if (!ingredients.Contains(val))
