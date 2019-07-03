@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
 {
 
     public SteamVR_Action_Boolean grabAction = null;
+    public CupGenerator cupGenerator;
 
     private SteamVR_Behaviour_Pose pose = null;
     private FixedJoint fixedJoint = null;
@@ -64,6 +65,14 @@ public class Hand : MonoBehaviour
         Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
         fixedJoint.connectedBody = targetBody;
         currentInteractable.activeHand = this;
+
+        if(currentInteractable.IsInSpawn())
+        {
+            Vector3 temp = new Vector3(currentInteractable.transform.position.x,
+                                        currentInteractable.transform.position.y,
+                                        currentInteractable.transform.position.z);
+            cupGenerator.generateCup(currentInteractable.isSmall, currentInteractable.transform.position);
+        }
     }
 
     public void Drop()
