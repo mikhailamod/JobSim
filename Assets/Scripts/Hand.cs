@@ -12,8 +12,8 @@ public class Hand : MonoBehaviour
     private SteamVR_Behaviour_Pose pose = null;
     private FixedJoint fixedJoint = null;
 
-    private Interactable currentInteractable = null;
-    private List<Interactable> interactables = new List<Interactable>();
+    public Interactable currentInteractable = null;
+    public List<Interactable> interactables = new List<Interactable>();
 
     void Awake()
     {
@@ -41,13 +41,17 @@ public class Hand : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Interactable"))
             return;
-        interactables.Add(other.gameObject.GetComponent<Interactable>());
+        //if(currentInteractable != null)
+        //{
+            interactables.Add(other.gameObject.GetComponent<Interactable>());
+        //}
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.gameObject.CompareTag("Interactable"))
             return;
+
         interactables.Remove(other.gameObject.GetComponent<Interactable>());
     }
 
@@ -122,5 +126,10 @@ public class Hand : MonoBehaviour
         }
 
         return nearest;
+    }
+
+    public void ForceRemove(Interactable i)
+    {
+        interactables.Remove(i);
     }
 }

@@ -18,8 +18,7 @@ public class Interactable : MonoBehaviour
     private bool isInSpawnArea = true;
     public Vector3 originalPos;
 
-    //UI
-    //public TextMeshProUGUI orderDetails;
+    public Transform destroyZone;
 
     private void Start()
     {
@@ -30,6 +29,7 @@ public class Interactable : MonoBehaviour
     {
         if (inZone && activeHand == null)
         {
+            transform.position = destroyZone.transform.position;
             Destroy(gameObject);
         }
     }
