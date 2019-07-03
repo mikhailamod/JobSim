@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     //OrderedDictionary coffeeType;
     Dictionary<string, string[]> coffeeType;
-    Queue<string> orders = new Queue<string>();
+    public Queue<string> orders = new Queue<string>();
     public string currentOrder;
     static System.Random rand;
 
@@ -66,12 +66,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-     public bool CheckOrder(Interactable interactable)
+     public bool CheckOrder(List<string> ingredients)
     {
+        Debug.Log("Cup has: " + ingredients);
         string[] currentIngredients = coffeeType[currentOrder];
-        foreach (string val in interactable.ingredients)
+        Debug.Log("Required: " + currentIngredients);
+        foreach (string val in currentIngredients)
         {
-            if (Array.IndexOf(currentIngredients, val) < 0)
+            if (!ingredients.Contains(val))
                 return false;
         }
 

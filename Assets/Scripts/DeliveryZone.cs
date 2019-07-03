@@ -7,11 +7,11 @@ public class DeliveryZone : MonoBehaviour
     public Material good;
     public Material bad;
 
-    public void checkCup(List<string> ingredients)
+    public GameManager gameManager;
+
+    public void checkCup(List<string> interactable)
     {
-        if(ingredients.Contains("espresso")
-            && ingredients.Contains("milk")
-            && ingredients.Contains("froth"))
+        if(gameManager.CheckOrder(interactable))
         {
             Debug.Log("Correct!");
             gameObject.GetComponent<Renderer>().material = good;
