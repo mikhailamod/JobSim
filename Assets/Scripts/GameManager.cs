@@ -32,7 +32,13 @@ public class GameManager : MonoBehaviour
 
     void NextOrder()
     {
-        currentOrder = orders.Dequeue();
+        currentOrder = orders.Peek();
+    }
+
+    void RemoveCurrentOrder()
+    {
+        orders.Dequeue();
+        NextOrder();
     }
 
     void GenerateOrders()
@@ -56,6 +62,8 @@ public class GameManager : MonoBehaviour
             if (Array.IndexOf(currentIngredients, val) < 0)
                 return false;
         }
+
+        RemoveCurrentOrder();
         return true;
     }
 }
