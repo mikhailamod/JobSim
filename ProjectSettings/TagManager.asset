@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ExcludeTeleport
-  - projectile
-  - FxTemporaire
-  - TeleportIgnore
   - Interactable
+  - Machine
+  - Delivery
+  - Spawn
   layers:
   - Default
   - TransparentFX
