@@ -3,14 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     //OrderedDictionary coffeeType;
     Dictionary<string, string[]> coffeeType;
-    Queue<string> orders;
-    string currentOrder;
+    Queue<string> orders = new Queue<string>();
+    public string currentOrder;
     static System.Random rand;
+
+    public TextMeshProUGUI currentOrderHeading;
+    public TextMeshProUGUI currentOrderDetails;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +34,17 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void NextOrder()
+    public void NextOrder()
     {
         currentOrder = orders.Peek();
+        //UI stuff
+        currentOrderHeading.text = currentOrder;
+        string[] temp = coffeeType[currentOrder];
+        currentOrderDetails.text = "";
+        for(int i = 0; i < temp.Length; i++)
+        {
+            currentOrderDetails.text += ("- " + temp[i] + "\n");
+        }
     }
 
     void RemoveCurrentOrder()
@@ -54,7 +66,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool CheckOrder(Interactable interactable)
+     public bool CheckOrder(Interactable interactable)
     {
         string[] currentIngredients = coffeeType[currentOrder];
         foreach (string val in interactable.ingredients)
