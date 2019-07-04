@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
         gameActive = false;
         string go = "Game Over";
         string stats = "Correct orders: " + correctOrders +"\n" +
-                                    "High score: " + highScore +
+                                    "High score: " + highScore + "\n" + 
                                     "Time taken: " + (Convert.ToInt32(gameTimer));
 
         currentOrderHeading.text = go;
