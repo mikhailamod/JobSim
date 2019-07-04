@@ -10,6 +10,7 @@ public class CupGenerator : MonoBehaviour
     
     public void generateCup(bool small, Vector3 pos)
     {
+        /*
         if(!small)
         {
             GameObject go = Instantiate(cup, this.transform);
@@ -20,5 +21,6 @@ public class CupGenerator : MonoBehaviour
             GameObject go = Instantiate( smallCup, this.transform);
             go.transform.position = pos;
         }
+        */
     }
 }
