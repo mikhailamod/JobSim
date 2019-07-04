@@ -8,11 +8,9 @@ public class DeliveryZone : MonoBehaviour
     public Material bad;
     public Material normal;
 
-    public GameManager gameManager;
-
     public void CheckCup(List<string> interactable)
     {
-        if(gameManager.CheckOrder(interactable))
+        if(GameManager.Instance.CheckOrder(interactable))
         {
             Debug.Log("Correct!");
             gameObject.GetComponent<Renderer>().material = good;

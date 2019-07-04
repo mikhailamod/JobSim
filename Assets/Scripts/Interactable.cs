@@ -28,6 +28,14 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
+        if(deliveryZone == null)
+        {
+            deliveryZone = GameManager.Instance.deliveryZone;
+        }
+        if(destroyZone == null)
+        {
+            destroyZone = GameManager.Instance.destoryZone;
+        }
         if (inZone && !handIsColliding && activeHand == null)
         {
             transform.position = destroyZone.transform.position;
