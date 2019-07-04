@@ -32,6 +32,7 @@ public class Interactable : MonoBehaviour
         {
             transform.position = destroyZone.transform.position;
             Destroy(gameObject);
+            deliveryZone.ChangeToNormalColor();
         }
     }
 
@@ -51,7 +52,7 @@ public class Interactable : MonoBehaviour
         else if(other.gameObject.CompareTag("Delivery"))
         {
             Debug.Log("Delivery Zone");
-            deliveryZone.checkCup(ingredients);
+            deliveryZone.CheckCup(ingredients);
             inZone = true;
         }
 

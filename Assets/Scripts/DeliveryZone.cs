@@ -6,10 +6,11 @@ public class DeliveryZone : MonoBehaviour
 {
     public Material good;
     public Material bad;
+    public Material normal;
 
     public GameManager gameManager;
 
-    public void checkCup(List<string> interactable)
+    public void CheckCup(List<string> interactable)
     {
         if(gameManager.CheckOrder(interactable))
         {
@@ -21,5 +22,10 @@ public class DeliveryZone : MonoBehaviour
             Debug.Log("Wrong!");
             gameObject.GetComponent<Renderer>().material = bad;
         }
+    }
+
+    public void ChangeToNormalColor()
+    {
+        gameObject.GetComponent<Renderer>().material = normal;
     }
 }
