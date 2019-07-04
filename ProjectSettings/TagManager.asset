@@ -8,6 +8,7 @@ TagManager:
   - Machine
   - Delivery
   - Spawn
+  - Hand
   layers:
   - Default
   - TransparentFX

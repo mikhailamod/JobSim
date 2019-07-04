@@ -16,6 +16,7 @@ public class Interactable : MonoBehaviour
 
     private bool inZone = false;
     private bool isInSpawnArea = true;
+    private bool handIsColliding = false;
     public Vector3 originalPos;
 
     public Transform destroyZone;
@@ -27,7 +28,7 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (inZone && activeHand == null)
+        if (inZone && !handIsColliding && activeHand == null)
         {
             transform.position = destroyZone.transform.position;
             Destroy(gameObject);
@@ -58,6 +59,10 @@ public class Interactable : MonoBehaviour
         {
             isInSpawnArea = true;
         }
+        else if(other.gameObject.CompareTag("Hand"))
+        {
+            handIsColliding = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -65,6 +70,10 @@ public class Interactable : MonoBehaviour
         if(other.gameObject.CompareTag("Spawn"))
         {
             isInSpawnArea = false;
+        }
+        else if (other.gameObject.CompareTag("Hand"))
+        {
+            handIsColliding = false;
         }
     }
 
