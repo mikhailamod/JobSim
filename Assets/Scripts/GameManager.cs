@@ -7,6 +7,24 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<GameManager>();
+            }
+            return _instance;
+        }
+    }
+
+    //references new cups need
+    public DeliveryZone deliveryZone;
+    public Transform destoryZone;
+
     //OrderedDictionary coffeeType;
     Dictionary<string, string[]> coffeeType;
     public Queue<string> orders = new Queue<string>();
@@ -24,6 +42,11 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI currentOrderHeading;
     public TextMeshProUGUI currentOrderDetails;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()

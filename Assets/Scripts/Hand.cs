@@ -41,10 +41,8 @@ public class Hand : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Interactable"))
             return;
-        //if(currentInteractable != null)
-        //{
-            interactables.Add(other.gameObject.GetComponent<Interactable>());
-        //}
+
+        interactables.Add(other.gameObject.GetComponent<Interactable>());
     }
 
     private void OnTriggerExit(Collider other)
