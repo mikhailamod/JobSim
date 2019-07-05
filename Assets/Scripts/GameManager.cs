@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     int prevSec = 0;
     int currentOrderNum;
     int targetTime = 15;
-    int[] levelList = { 15, 10, 8, 5, 2 };
+    int[] levelList = { 15, 7, 6, 3, 2 };
 
     public static bool gameActive = false;
     public bool hasStarted = false;
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         {
             gameTimer += Time.deltaTime;
             int seconds = Convert.ToInt32(gameTimer);
-            timeLeftText.text = "Time: " + seconds;
+            timeLeftText.text = "Time: " + seconds + "\nLevel: " + (level+1);
             if (seconds > prevSec)
             {
                 if (seconds == targetTime) // generate new order every levelList[level] second  
@@ -111,8 +111,10 @@ public class GameManager : MonoBehaviour
                 }
                 prevSec = seconds;
 
-                if ((seconds % 30) == 0) // change level every 30 seconds
-                    level++;
+                if ((seconds % 30) == 0)// change level every 30 seconds
+                { 
+                    if (level < 4) { level++; }
+                }
             }
         }
     }

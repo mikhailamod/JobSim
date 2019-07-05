@@ -91,6 +91,7 @@ public class Hand : MonoBehaviour
         Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
         targetBody.velocity = pose.GetVelocity();
         targetBody.angularVelocity = pose.GetAngularVelocity();
+        targetBody.transform.rotation = Quaternion.identity;
 
         fixedJoint.connectedBody = null;
         currentInteractable.activeHand = null;
