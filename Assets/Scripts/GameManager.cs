@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     int prevSec = 0;
     int currentOrderNum;
     int targetTime = 20;
-    int[] levelList = { 10, 9, 8, 7, 6 };
+    int[] levelList = { 20, 15, 12, 10, 5 };
     public static bool gameActive = true;
 
     //UI stuff
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     void ResetAll()
     {
-        level = 4;
+        level = 0;
         prevOrder = 0;
         gameTimer = 0.0f;
         correctOrders = 0;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
                 prevSec = seconds;
 
                 if ((seconds % 60) == 0) // change level every minute
-                    level--;
+                    level++;
             }
         }
     }
