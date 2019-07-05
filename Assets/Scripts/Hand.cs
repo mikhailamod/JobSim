@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
 {
 
     public SteamVR_Action_Boolean grabAction = null;
+    public SteamVR_Action_Boolean interactAction = null;
     public CupGenerator cupGenerator;
 
     private SteamVR_Behaviour_Pose pose = null;
@@ -34,6 +35,11 @@ public class Hand : MonoBehaviour
         {
             Debug.Log(pose.inputSource + " Trigger Up.");
             Drop();
+        }
+
+        if(grabAction.GetStateDown(pose.inputSource) && !GameManager.Instance.hasStarted)
+        {
+            GameManager.Instance.StartGame();
         }
     }
 

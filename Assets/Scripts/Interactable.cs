@@ -53,6 +53,7 @@ public class Interactable : MonoBehaviour
             if (!ingredients.Contains(otherIngredient))
             {
                 ingredients.Add(otherIngredient);
+                other.gameObject.GetComponent<Machine>().InteractColor();
                 Debug.Log("Adding " + otherIngredient + " to cup");
             }
         }
@@ -83,6 +84,10 @@ public class Interactable : MonoBehaviour
         else if (other.gameObject.CompareTag("Hand"))
         {
             handIsColliding = false;
+        }
+        else if (other.gameObject.CompareTag("Machine"))
+        {
+            other.gameObject.GetComponent<Machine>().NormalColor();
         }
     }
 

@@ -363,3 +363,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredient: espresso
   label: {fileID: 2791584637182414239}
+  normal: {fileID: 2100000, guid: 6fe8ca2544b8a244baa94420ce1449ff, type: 2}
+  interact: {fileID: 2100000, guid: 25d3a28fbcd4f8446a5d61faa2b7ebda, type: 2}

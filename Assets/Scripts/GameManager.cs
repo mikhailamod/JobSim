@@ -36,9 +36,11 @@ public class GameManager : MonoBehaviour
     int correctOrders, totalOrders;
     int prevSec = 0;
     int currentOrderNum;
-    int targetTime = 20;
-    int[] levelList = { 20, 15, 12, 10, 5 };
-    public static bool gameActive = true;
+    int targetTime = 15;
+    int[] levelList = { 15, 10, 8, 5, 2 };
+
+    public static bool gameActive = false;
+    public bool hasStarted = false;
 
     //UI stuff
     public TextMeshProUGUI allOrdersText;
@@ -66,9 +68,16 @@ public class GameManager : MonoBehaviour
         //
         rand = new System.Random();
         ResetAll();
-        currentOrderHeading.text = "Orders";
-        GenerateOrder();
-        NextOrder();
+
+        string headings = "Welcome";
+        string bodies = "Pull trigger to begin";
+
+        currentOrderHeading.text = headings;
+        currentOrderDetails.text = bodies;
+
+        allOrdersHeading.text = headings;
+        allOrdersText.text = bodies;
+        
     }
 
     void ResetAll()
@@ -87,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameActive)
+        if (gameActive && hasStarted)
         {
             gameTimer += Time.deltaTime;
             int seconds = Convert.ToInt32(gameTimer);
@@ -102,23 +111,44 @@ public class GameManager : MonoBehaviour
                 }
                 prevSec = seconds;
 
-                if ((seconds % 60) == 0) // change level every minute
+                if ((seconds % 30) == 0) // change level every 30 seconds
                     level++;
             }
         }
     }
 
+    public void StartGame()
+    {
+        hasStarted = true;
+
+        currentOrderHeading.text = "Awaiting Order";
+        currentOrderDetails.text = "";
+
+        allOrdersHeading.text = "Orders";
+        allOrdersText.text = "";
+
+        GenerateOrder();
+        GenerateOrder();
+        NextOrder();
+    }
+
     public void NextOrder()
     {
-        currentOrder = orders.Peek();
+        if(orders.Count > 0)
+        {
+            currentOrder = orders.Peek();
+        }
         currentOrderNum++;
         DisplayOrderList();
     }
 
     void RemoveCurrentOrder()
     {
-        orders.Dequeue();
-        NextOrder();
+        if(orders.Count > 0)
+        {
+            orders.Dequeue();
+            NextOrder();
+        }      
     }
 
     void GenerateOrder()
@@ -136,6 +166,7 @@ public class GameManager : MonoBehaviour
             orders.Enqueue(myKeys[randNum]);
             prevOrder = randNum;
             totalOrders++;
+            currentOrder = orders.Peek();
             DisplayOrderList();
         }
         else GameOver();
@@ -160,6 +191,13 @@ public class GameManager : MonoBehaviour
 
     public void DisplayOrderList()
     {
+        if(orders.Count == 0)
+        {
+            allOrdersText.text = "";
+            currentOrderHeading.text = "Awaiting Order";
+            currentOrderDetails.text = "";
+            return;
+        }
         int count = currentOrderNum;
         allOrdersText.text = "";
         foreach (var item in orders)
@@ -167,15 +205,12 @@ public class GameManager : MonoBehaviour
             allOrdersText.text += (count + ": " + item + "\n");
             count++;
         }
-        if(currentOrder != null && currentOrder.Length > 1)
+        currentOrderHeading.text = currentOrder + " Recipe";
+        currentOrderDetails.text = "";
+        string[] currentIngredients = coffeeType[currentOrder];
+        foreach (string ing in currentIngredients)
         {
-            currentOrderHeading.text = currentOrder + " Recipe";
-            currentOrderDetails.text = "";
-            string[] currentIngredients = coffeeType[currentOrder];
-            foreach (string ing in currentIngredients)
-            {
-                currentOrderDetails.text += ("- " + ing + "\n");
-            }
+            currentOrderDetails.text += ("- " + ing + "\n");
         }
     }
 
