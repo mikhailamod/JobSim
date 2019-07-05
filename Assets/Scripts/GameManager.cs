@@ -36,12 +36,19 @@ public class GameManager : MonoBehaviour
     int correctOrders, totalOrders;
     int prevSec = 0;
     int currentOrderNum;
-    int targetTime = 10;
-    int[] levelList = { 10, 9, 8, 7, 6 };
+    int targetTime = 20;
+    int[] levelList = { 20, 15, 12, 10, 5 };
     public static bool gameActive = true;
+
+    //UI stuff
+    public TextMeshProUGUI allOrdersText;
+    public TextMeshProUGUI allOrdersHeading;
 
     public TextMeshProUGUI currentOrderHeading;
     public TextMeshProUGUI currentOrderDetails;
+
+    public TextMeshProUGUI correctOrdersText;
+    public TextMeshProUGUI timeLeftText;
 
     private void Awake()
     {
@@ -66,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     void ResetAll()
     {
-        level = 4;
+        level = 0;
         prevOrder = 0;
         gameTimer = 0.0f;
         correctOrders = 0;
@@ -84,6 +91,7 @@ public class GameManager : MonoBehaviour
         {
             gameTimer += Time.deltaTime;
             int seconds = Convert.ToInt32(gameTimer);
+            timeLeftText.text = "Time: " + seconds;
             if (seconds > prevSec)
             {
                 if (seconds == targetTime) // generate new order every levelList[level] second  
@@ -95,7 +103,7 @@ public class GameManager : MonoBehaviour
                 prevSec = seconds;
 
                 if ((seconds % 60) == 0) // change level every minute
-                    level--;
+                    level++;
             }
         }
     }
@@ -104,8 +112,6 @@ public class GameManager : MonoBehaviour
     {
         currentOrder = orders.Peek();
         currentOrderNum++;
-        //UI stuff
-        string[] temp = coffeeType[currentOrder];
         DisplayOrderList();
     }
 
@@ -135,7 +141,9 @@ public class GameManager : MonoBehaviour
         else GameOver();
     }
 
-     public bool CheckOrder(List<string> ingredients)
+    public bool OrderExists() { return (orders.Count > 0); }
+
+    public bool CheckOrder(List<string> ingredients)
     {
         string[] currentIngredients = coffeeType[currentOrder];
         foreach (string val in currentIngredients)
@@ -146,25 +154,47 @@ public class GameManager : MonoBehaviour
 
         RemoveCurrentOrder();
         correctOrders++;
+        correctOrdersText.text = "Correct Orders: " + correctOrders;
         return true;
     }
 
     public void DisplayOrderList()
     {
         int count = currentOrderNum;
-        currentOrderDetails.text = "";
+        allOrdersText.text = "";
         foreach (var item in orders)
         {
-            currentOrderDetails.text += (count + " - " + item + "\n");
+            allOrdersText.text += (count + ": " + item + "\n");
             count++;
+        }
+        if(currentOrder != null && currentOrder.Length > 1)
+        {
+            currentOrderHeading.text = currentOrder + " Recipe";
+            currentOrderDetails.text = "";
+            string[] currentIngredients = coffeeType[currentOrder];
+            foreach (string ing in currentIngredients)
+            {
+                currentOrderDetails.text += ("- " + ing + "\n");
+            }
         }
     }
 
     public void GameOver()
     {
+        int highScore = PlayerPrefs.GetInt("correctOrders", 0);
+        highScore = (correctOrders > highScore) ? correctOrders : highScore;
+        PlayerPrefs.SetInt("correctOrders", highScore);
+
         gameActive = false;
-        currentOrderHeading.text = "Game Over";
-        currentOrderDetails.text = "Correct orders: " + correctOrders + "/" + totalOrders +"\n" +
-            "Time taken: " + (Convert.ToInt32(gameTimer));
+        string go = "Game Over";
+        string stats = "Correct orders: " + correctOrders +"\n" +
+                                    "High score: " + highScore + "\n" + 
+                                    "Time taken: " + (Convert.ToInt32(gameTimer));
+
+        currentOrderHeading.text = go;
+        currentOrderDetails.text = stats;
+
+        allOrdersHeading.text = go;
+        allOrdersText.text = stats;
     }
 }

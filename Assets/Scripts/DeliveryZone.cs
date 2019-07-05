@@ -10,15 +10,18 @@ public class DeliveryZone : MonoBehaviour
 
     public void CheckCup(List<string> ingredients)
     {
-        if(GameManager.Instance.CheckOrder(ingredients))
+        if(GameManager.Instance.OrderExists())
         {
-            Debug.Log("Correct!");
-            gameObject.GetComponent<Renderer>().material = good;
-        }
-        else
-        {
-            Debug.Log("Wrong!");
-            gameObject.GetComponent<Renderer>().material = bad;
+            if (GameManager.Instance.CheckOrder(ingredients))
+            {
+                Debug.Log("Correct!");
+                gameObject.GetComponent<Renderer>().material = good;
+            }
+            else
+            {
+                Debug.Log("Wrong!");
+                gameObject.GetComponent<Renderer>().material = bad;
+            }
         }
     }
 
